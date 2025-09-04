@@ -38,36 +38,34 @@
     "theme": {
       "extend": {
         "colors": {
-          "primary": {
-            "DEFAULT": "#3B82F6",
-            "foreground": "#FFFFFF"
-          },
-          "secondary": {
-            "DEFAULT": "#1E293B",
-            "foreground": "#FFFFFF"
-          },
-          "accent": {
-            "DEFAULT": "#F97316",
-            "foreground": "#FFFFFF"
-          },
-          "neutral": {
-            "DEFAULT": "#64748B",
-            "foreground": "#FFFFFF"
-          },
-          "background": "#FFFFFF",
-          "foreground": "#0F172A"
+         "primary": {
+          "DEFAULT": "#0D6EFD", 
+          "foreground": "#FFFFFF"
         },
-        "fontFamily": {
-          "sans": [
-            "var(--font-inter)",
-            "sans-serif"
-          ],
-          "heading": [
-            "var(--font-poppins)",
-            "sans-serif"
-          ]
-        }
+        "secondary": {
+          "DEFAULT": "#0DC4FF",
+          "foreground": "#FFFFFF"
+        },
+        "text": {
+          "DEFAULT": "#1E293B", 
+          "muted": "#64748B"
+        },
+        "accent": { "DEFAULT": "#F97316", "foreground": "#FFFFFF" },
+        "neutral": { "DEFAULT": "#64748B", "foreground": "#FFFFFF" },
+        "background": "#FFFFFF",
+        "foreground": "#0F172A"
+      },
+      "fontFamily": {
+        "sans": [
+          "var(--font-inter)",
+          "sans-serif"
+        ],
+        "heading": [
+          "var(--font-poppins)",
+          "sans-serif"
+        ]
       }
     }
   }
+}
 }
