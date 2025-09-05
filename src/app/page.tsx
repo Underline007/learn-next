@@ -1,5 +1,27 @@
-import { Header } from "@/components/layout/Header";
+import {
+  CompanyIntro,
+  Partners,
+  Solutions,
+  Process,
+  ChatbotCTA,
+  Ecosystem,
+  Mission,
+  Team,
+  DiscoveryCTA,
+} from "@/components/sections";
 
 export default function Home() {
-  return <Header />;
+  return (
+    <>
+      <CompanyIntro />
+      <Partners />
+      <Solutions />
+      <Process />
+      <ChatbotCTA />
+      <Ecosystem />
+      <Mission />
+      <Team />
+      <DiscoveryCTA />
+    </>
+  );
 }
