@@ -30,42 +30,5 @@
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.8",
     "typescript": "^5"
-  },
-  "tailwind": {
-    "content": [
-      "./src/**/*.{js,ts,jsx,tsx}"
-    ],
-    "theme": {
-      "extend": {
-        "colors": {
-         "primary": {
-          "DEFAULT": "#0D6EFD", 
-          "foreground": "#FFFFFF"
-        },
-        "secondary": {
-          "DEFAULT": "#0DC4FF",
-          "foreground": "#FFFFFF"
-        },
-        "text": {
-          "DEFAULT": "#1E293B", 
-          "muted": "#64748B"
-        },
-        "accent": { "DEFAULT": "#F97316", "foreground": "#FFFFFF" },
-        "neutral": { "DEFAULT": "#64748B", "foreground": "#FFFFFF" },
-        "background": "#FFFFFF",
-        "foreground": "#0F172A"
-      },
-      "fontFamily": {
-        "sans": [
-          "var(--font-inter)",
-          "sans-serif"
-        ],
-        "heading": [
-          "var(--font-poppins)",
-          "sans-serif"
-        ]
-      }
-    }
   }
-}
 }
