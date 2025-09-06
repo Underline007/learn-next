@@ -1,27 +1,32 @@
 import {
   CompanyIntro,
-  Partners,
-  Solutions,
-  Process,
   ChatbotCTA,
   Ecosystem,
   Mission,
   Team,
   DiscoveryCTA,
+  PartnersSection,
+  ProcessSection,
+  SolutionsSection,
+  FeaturesSection,
 } from "@/components/sections";
+import { SiteLayout } from '@/components/layout/SiteLayout';
 
 export default function Home() {
   return (
-    <>
+    <div>
+     <SiteLayout>
       <CompanyIntro />
-      <Partners />
-      <Solutions />
-      <Process />
+      <PartnersSection />
+      <SolutionsSection />
+      <ProcessSection />
+      <FeaturesSection />
       <ChatbotCTA />
       <Ecosystem />
       <Mission />
       <Team />
-      <DiscoveryCTA />
-    </>
+      <DiscoveryCTA /> 
+     </SiteLayout>
+    </div>
   );
 }

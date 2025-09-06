@@ -1,9 +1,10 @@
 export { CompanyIntro } from "./CompanyIntro";
-export { Partners } from "./Partners";
-export { Solutions } from "./Solutions";
-export { Process } from "./Process";
+export { ProcessSection } from "./ProcessSection";
 export { ChatbotCTA } from "./ChatbotCTA";
 export { Ecosystem } from "./Ecosystem";
 export { Mission } from "./Mission";
 export { Team } from "./Team";
 export { DiscoveryCTA } from "./DiscoveryCTA";
+export { PartnersSection } from "./PartnersSection";
+export { SolutionsSection } from "./SolutionsSection";
+export { FeaturesSection } from "./FeaturesSection";

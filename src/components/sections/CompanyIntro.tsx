@@ -1,81 +1,96 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
 import { Container } from "@/components/ui/container";
 import { Heading } from "@/components/ui/heading";
 import { Paragraph } from "@/components/ui/paragraph";
 import { Button } from "@/components/ui/button";
+import { Header } from "../layout/Header";
 
 export function CompanyIntro() {
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = () => {
+    console.log("Email submitted:", email);
+    // Handle email submission logic here
+  };
+
   return (
-    <section className="bg-background py-[96px]">
-      <Container className="grid gap-[48px] md:grid-cols-[1.1fr_0.9fr] items-center">
-        <div>
-          <Heading
-            level={2}
-            className="font-heading text-[40px] leading-[48px] text-text mb-4"
-          >
-            Antco — Giải pháp số tạo khác biệt
-          </Heading>
-          <Paragraph className="text-[16px] leading-[28px] text-text-muted mb-8 max-w-[640px]">
-            Chúng tôi giúp doanh nghiệp chuyển đổi số nhanh, chắc, và hiệu quả
-            nhờ công nghệ hiện đại, quy trình tinh gọn và đội ngũ chuyên gia
-            giàu kinh nghiệm.
-          </Paragraph>
+    <div className="bg-[url('/images/company_intro_background.png')] order-0 bg-no-repeat bg-cover bg-[-300px_center]">
+      {/* Header */}
+      <Header />
+      <section className="relative z-10 pt-8 pb-16 md:pt-20 md:pb-32">
+        <Container>
+          <div className="grid grid-cols-1 md:grid-cols-[1.2fr_0.8fr] gap-12 md:gap-16 items-center min-h-[70vh]">
+            {/* Content Section */}
+            <div className="space-y-8 md:space-y-12">
+              {/* Main Headings */}
+              <div className="space-y-2">
+                <Heading
+                  level={1}
+                  className="font-bold text-blue-600 uppercase tracking-wide leading-tight
+                             text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
+                >
+                  Đổi mới sáng tạo
+                </Heading>
+                <Heading
+                  level={2}
+                  className="font-bold text-gray-900 uppercase tracking-wide leading-tight whitespace-nowrap
+                             text-xl sm:text-2xl md:text-3xl lg:text-4xl"
+                >
+                  Kỷ nguyên vươn mình
+                </Heading>
+              </div>
 
-          <div className="grid grid-cols-3 gap-6 mb-10">
-            <div>
-              <p className="text-[36px] leading-[40px] font-semibold text-text">
-                120+
-              </p>
-              <p className="text-[13px] leading-[20px] text-text-muted">
-                Dự án hoàn thành
-              </p>
+              {/* Description */}
+              <Paragraph
+                className="text-gray-700 max-w-2xl
+                           text-sm sm:text-base md:text-lg lg:text-xl
+                           leading-relaxed"
+              >
+                Antco đồng hành cùng chính phủ và doanh nghiệp trên hành trình
+                chuyển đổi số, mang đến các giải pháp công nghệ tùy chỉnh và
+                tiên tiến. Chúng tôi tích hợp trí tuệ nhân tạo thông minh, điện
+                toán đám mây, hạ tầng bảo mật và phân tích dữ liệu lớn để tối ưu
+                hóa quy trình vận hành, nâng cao trải nghiệm người dùng và đảm
+                bảo hiệu quả bền vững cho đối tác.
+              </Paragraph>
+
+              {/* Email Input Form */}
+              <div className="flex flex-col sm:flex-row gap-3 max-w-xl">
+                <div
+                  className="flex-1 flex items-center px-4 py-3
+                                bg-white/40 border border-white rounded-full
+                                backdrop-blur-md shadow-sm"
+                >
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Nhập email"
+                    className="flex-1 bg-transparent outline-none border-none
+                               text-gray-800 placeholder-gray-500
+                               text-sm sm:text-base md:text-lg"
+                  />
+                </div>
+
+                <Button
+                  onClick={handleSubmit}
+                  className="inline-flex items-center justify-center px-6 py-6 rounded-full
+                             text-white font-medium shadow-md
+                             bg-gradient-to-r from-sky-400 to-blue-700
+                             hover:from-sky-300 hover:to-blue-600
+                             transition-all duration-200 text-sm sm:text-base md:text-lg"
+                >
+                  Liên hệ ngay
+                </Button>
+              </div>
             </div>
-            <div>
-              <p className="text-[36px] leading-[40px] font-semibold text-text">
-                50+
-              </p>
-              <p className="text-[13px] leading-[20px] text-text-muted">
-                Khách hàng
-              </p>
-            </div>
-            <div>
-              <p className="text-[36px] leading-[40px] font-semibold text-text">
-                4.9/5
-              </p>
-              <p className="text-[13px] leading-[20px] text-text-muted">
-                Độ hài lòng
-              </p>
-            </div>
+
+            {/* Visual Section - Visible on larger screens */}
+            <div className="hidden md:block relative"></div>
           </div>
-
-          <div className="flex gap-4">
-            <Button
-              size="lg"
-              className="bg-primary text-primary-foreground rounded-full px-6 py-3"
-            >
-              Liên hệ tư vấn
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="rounded-full px-6 py-3"
-            >
-              Xem năng lực
-            </Button>
-          </div>
-        </div>
-
-        <div className="relative">
-          <Image
-            src="/images/intro-hero.png" // thay bằng ảnh Figma export
-            alt="Antco company"
-            width={640}
-            height={520}
-            className="rounded-xl shadow"
-            priority
-          />
-        </div>
-      </Container>
-    </section>
+        </Container>
+      </section>
+    </div>
   );
 }
