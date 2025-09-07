@@ -5,10 +5,10 @@ import { Button } from "../ui/button";
 
 const features = [
   {
-    icon: "/images/icon/message-notification-circle.svg",
+    icon: "/images/message-notification-circle.svg",
     text: "Tư vấn chuyên sâu",
   },
-  { icon: "/images/icon/check-verified.svg", text: "Đảm bảo chất lượng" },
+  { icon: "/images/check-verified.svg", text: "Đảm bảo chất lượng" },
 ];
 
 const techItems = [

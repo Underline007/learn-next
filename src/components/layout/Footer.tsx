@@ -5,10 +5,10 @@ import Image from "next/image";
 import { Logo } from "@/components/shared/Logo";
 
 const socialIcons = [
-  { src: "/images/icon/facebook.svg", alt: "Facebook" },
-  { src: "/images/icon/youtube.svg", alt: "YouTube" },
-  { src: "/images/icon/linkedin.svg", alt: "LinkedIn" },
-  { src: "/images/icon/google.svg", alt: "Google" },
+  { src: "/images/facebook.svg", alt: "Facebook" },
+  { src: "/images/youtube.svg", alt: "YouTube" },
+  { src: "/images/linkedin.svg", alt: "LinkedIn" },
+  { src: "/images/google.svg", alt: "Google" },
 ];
 
 const cols = [

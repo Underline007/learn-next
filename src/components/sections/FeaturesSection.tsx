@@ -60,12 +60,12 @@ export function FeaturesSection() {
   ];
 
   const tools = [
-    { icon: "/images/icon/report.svg", title: "Tạo báo cáo" },
-    { icon: "/images/icon/summarize.svg", title: "Tóm tắt" },
-    { icon: "/images/icon/cloud.svg", title: "Số hóa tài liệu" },
-    { icon: "/images/icon/record.svg", title: "Bóc băng ghi âm" },
-    { icon: "/images/icon/search.svg", title: "Phân tích tham mưu" },
-    { icon: "/images/icon/assistant.svg", title: "Tra cứu pháp luật" },
+    { icon: "/images/report.svg", title: "Tạo báo cáo" },
+    { icon: "/images/summarize.svg", title: "Tóm tắt" },
+    { icon: "/images/cloud.svg", title: "Số hóa tài liệu" },
+    { icon: "/images/record.svg", title: "Bóc băng ghi âm" },
+    { icon: "/images/search.svg", title: "Phân tích tham mưu" },
+    { icon: "/images/assistant.svg", title: "Tra cứu pháp luật" },
   ];
 
   const topNav = [
@@ -158,7 +158,7 @@ export function FeaturesSection() {
                         <FileIcon className="w-4 h-4 text-neutral-1" />
                       ) : (
                         <Image
-                          src="/images/icon/recording.svg"
+                          src="/images/recording.svg"
                           alt="Recording"
                           width={16}
                           height={16}
