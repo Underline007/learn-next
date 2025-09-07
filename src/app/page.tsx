@@ -1,16 +1,16 @@
 import {
   CompanyIntro,
-  ChatbotCTA,
-  Ecosystem,
-  Mission,
-  Team,
-  DiscoveryCTA,
   PartnersSection,
   ProcessSection,
   SolutionsSection,
   FeaturesSection,
+  EcoSystemSection,
+  MembersSection,
+  MissionSection,
+  AboutUsSection
 } from "@/components/sections";
 import { SiteLayout } from '@/components/layout/SiteLayout';
+
 
 export default function Home() {
   return (
@@ -21,11 +21,10 @@ export default function Home() {
       <SolutionsSection />
       <ProcessSection />
       <FeaturesSection />
-      <ChatbotCTA />
-      <Ecosystem />
-      <Mission />
-      <Team />
-      <DiscoveryCTA /> 
+      <EcoSystemSection/>
+      <MissionSection/>
+      <MembersSection/>
+      <AboutUsSection/>
      </SiteLayout>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Poppins, Inter } from "next/font/google";
+import { Poppins, Inter, Commissioner } from "next/font/google";
 
 export const poppins = Poppins({
   subsets: ["latin"],
@@ -10,4 +10,9 @@ export const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-inter",
+});
+
+const commissioner = Commissioner({
+  subsets: ["latin"],
+  weight: ["500"],
 });

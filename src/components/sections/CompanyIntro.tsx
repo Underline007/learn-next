@@ -15,7 +15,7 @@ export function CompanyIntro() {
   };
 
   return (
-    <div className="bg-[url('/images/company_intro_background.png')] order-0 bg-no-repeat bg-cover bg-[-300px_center]">
+    <div className="bg-[url('/images/company_intro_background.png')] order-0 bg-no-repeat bg-cover bg-[-100px_center]">
       {/* Header */}
       <Header />
       <section className="relative z-10 pt-8 pb-16 md:pt-20 md:pb-32">

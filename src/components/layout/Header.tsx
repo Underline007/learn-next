@@ -1,13 +1,12 @@
 "use client";
 
-import { Container } from "@/components/ui/container";
+import { useState } from "react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/shared/Logo";
-import { Menu, ChevronDown } from "lucide-react";
-import {  useState } from "react";
 
 const navItems = [
-  { label: "Trang chủ", href: "/" },
+  { label: "Trang chủ", href: "/", active: true },
   { label: "Giải pháp AI", href: "/#ai" },
   { label: "Chuyển đổi số", href: "/#digital-transformation" },
   {
@@ -22,78 +21,64 @@ const navItems = [
   { label: "Liên hệ", href: "/#contact" },
 ];
 
-
-
-
 export function Header() {
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const handleDropdownToggle = (index: number) => {
+  const toggleDropdown = (index: number) => {
     setActiveDropdown(activeDropdown === index ? null : index);
   };
 
-  
-
-  const handleMouseEnter = (index: number) => {
-    if (navItems[index].hasDropdown) {
-      setActiveDropdown(index);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setTimeout(() => {
-      setActiveDropdown(null);
-    }, 800); 
-  };
-
   return (
-    <header className="top-0 z-50">
-      <Container className="flex h-20 items-center justify-between">
+    <header
+      className={`w-full absolute top-0 left-0 z-50 transition-colors ${
+        mobileOpen ? "bg-white " : "bg-transparent"
+      }`}
+    >
+      <div className="flex items-center justify-between px-6 md:px-[200px] py-4 md:py-6 h-[72px] md:h-[104px]">
         {/* Logo */}
-        <Logo className="h-10 w-auto" />
+        <Logo className="h-8 md:h-10 w-auto" />
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-[56px]">
           {navItems.map((item, index) => (
-            <div
-              key={index}
-              className="relative"
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={handleMouseLeave}
-            >
+            <div key={index} className="relative">
               <a
                 href={item.href}
-                className="flex items-center gap-1 px-3 py-2 text-gray-700 hover:text-blue-600 transition-colors font-medium"
                 onClick={
                   item.hasDropdown
                     ? (e) => {
                         e.preventDefault();
-                        handleDropdownToggle(index);
+                        toggleDropdown(index);
                       }
                     : undefined
                 }
+                className={`flex items-center gap-2 text-[16px] leading-6 transition-colors ${
+                  item.active
+                    ? "font-semibold text-[#112639] border-b-2 border-[#112639] pb-2"
+                    : "font-normal text-[#112639] hover:text-[#1851C1]"
+                }`}
               >
                 {item.label}
                 {item.hasDropdown && (
                   <ChevronDown
-                    className={`h-4 w-4 transition-transform duration-800 ${
+                    className={`h-5 w-5 transition-transform ${
                       activeDropdown === index ? "rotate-180" : ""
                     }`}
                   />
                 )}
               </a>
 
-              {/* Dropdown Menu */}
+              {/* Dropdown (desktop) */}
               {item.hasDropdown && activeDropdown === index && (
-                <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
-                  {item.submenu?.map((subItem, subIndex) => (
+                <div className="absolute top-[52px] left-0 w-[171px] rounded-xl border border-[#C2D9FF] bg-white shadow-md flex flex-col p-4 gap-3 z-50">
+                  {item.submenu?.map((sub, subIdx) => (
                     <a
-                      key={subIndex}
-                      href={subItem.href}
-                      className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                      key={subIdx}
+                      href={sub.href}
+                      className="text-[#112639] text-[16px] leading-6 hover:text-[#1851C1] transition-colors"
                     >
-                      {subItem.label}
+                      {sub.label}
                     </a>
                   ))}
                 </div>
@@ -102,11 +87,11 @@ export function Header() {
           ))}
         </nav>
 
-        {/* CTA Button */}
+        {/* CTA Button Desktop */}
         <div className="hidden md:block">
           <Button
-            size="md"
-            className="rounded-full bg-blue-600 px-6 py-2 text-white hover:bg-blue-700 transition-colors"
+            className="h-14 px-6 rounded-full text-white text-[16px] font-semibold leading-6 
+        bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] hover:opacity-90 transition"
           >
             Khám phá ngay
           </Button>
@@ -114,72 +99,63 @@ export function Header() {
 
         {/* Mobile Menu Button */}
         <button
-          onClick={() => setMobileOpen(!mobileOpen)}
           className="md:hidden p-2"
+          onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
-          <Menu className="h-6 w-6" />
+          {mobileOpen ? (
+            <X className="h-6 w-6 text-[#112639]" />
+          ) : (
+            <Menu className="h-6 w-6 text-[#112639]" />
+          )}
         </button>
-      </Container>
+      </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Menu Panel */}
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100">
-          <Container className="py-4">
-            <nav className="flex flex-col gap-2">
-              {navItems.map((item, index) => (
-                <div key={index}>
-                  <a
-                    href={item.href}
-                    className="flex items-center justify-between px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                    onClick={
-                      item.hasDropdown
-                        ? (e) => {
-                            e.preventDefault();
-                            handleDropdownToggle(index);
-                          }
-                        : () => setMobileOpen(false)
-                    }
-                  >
-                    {item.label}
-                    {item.hasDropdown && (
-                      <ChevronDown
-                        className={`h-4 w-4 transition-transform duration-200 ${
-                          activeDropdown === index ? "rotate-180" : ""
-                        }`}
-                      />
-                    )}
-                  </a>
-
-                  {/* Mobile Submenu */}
-                  {item.hasDropdown && activeDropdown === index && (
-                    <div className="ml-4 mt-2 space-y-2">
-                      {item.submenu?.map((subItem, subIndex) => (
-                        <a
-                          key={subIndex}
-                          href={subItem.href}
-                          className="block px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                          onClick={() => setMobileOpen(false)}
-                        >
-                          {subItem.label}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-
-              <div className="mt-4 px-4">
-                <Button
-                  size="md"
-                  className="w-full rounded-full bg-blue-600 px-6 py-2 text-white hover:bg-blue-700 transition-colors"
-                  onClick={() => setMobileOpen(false)}
+        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg">
+          <nav className="flex flex-col px-6 py-4">
+            {navItems.map((item, index) => (
+              <div key={index} className="flex flex-col">
+                <button
+                  onClick={() =>
+                    item.hasDropdown
+                      ? toggleDropdown(index)
+                      : setMobileOpen(false)
+                  }
+                  className={`flex items-center justify-between py-3 text-[16px] leading-6 ${
+                    item.active
+                      ? "font-semibold text-[#112639]"
+                      : "font-normal text-[#112639]"
+                  }`}
                 >
-                  Khám phá ngay
-                </Button>
+                  {item.label}
+                  {item.hasDropdown && (
+                    <ChevronDown
+                      className={`h-5 w-5 transition-transform ${
+                        activeDropdown === index ? "rotate-180" : ""
+                      }`}
+                    />
+                  )}
+                </button>
+
+                {item.hasDropdown && activeDropdown === index && (
+                  <div className="pl-4 flex flex-col border-l border-[#C2D9FF] ml-2 mb-2">
+                    {item.submenu?.map((sub, subIdx) => (
+                      <a
+                        key={subIdx}
+                        href={sub.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="py-2 text-[15px] text-[#112639] hover:text-[#1851C1]"
+                      >
+                        {sub.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
-            </nav>
-          </Container>
+            ))}
+          </nav>
         </div>
       )}
     </header>
