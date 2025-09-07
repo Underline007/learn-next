@@ -1,4 +1,3 @@
-// src/components/nav/Header.tsx
 "use client";
 
 import Link from "next/link";
@@ -21,7 +20,7 @@ const navItems = [
       { label: "Giải pháp số hóa", href: "/digital-solutions" },
     ],
   },
-  { label: "Liên hệ", href: "/consultant" }, 
+  { label: "Liên hệ", href: "/consultant" },
 ];
 
 export function Header() {
@@ -30,7 +29,7 @@ export function Header() {
   const pathname = usePathname();
 
   const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href); // highlight khi ở /lien-he
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <header
@@ -38,11 +37,12 @@ export function Header() {
         mobileOpen ? "bg-white border-b border-gray-200" : "bg-transparent"
       }`}
     >
-      <div className="flex items-center justify-between px-6 md:px-[200px] py-4 md:py-6 h-[72px] md:h-[104px]">
-        <Logo className="h-8 md:h-10 w-auto" />
+      <div className="flex items-center justify-between px-4 sm:px-6 lg:px-[200px] py-4 lg:py-6 h-[72px] lg:h-[104px]">
+        {/* Logo */}
+        <Logo className="h-8 lg:h-10 w-auto" />
 
-        {/* Desktop */}
-        <nav className="hidden md:flex items-center gap-[56px]">
+        {/* Desktop Navigation (>=1024px mới hiện) */}
+        <nav className="hidden lg:flex items-center gap-[56px]">
           {navItems.map((item, index) => (
             <div key={index} className="relative">
               {item.hasDropdown ? (
@@ -95,15 +95,16 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        {/* CTA Desktop */}
+        <div className="hidden lg:block">
           <Button className="h-14 px-6 rounded-full text-white text-[16px] font-semibold leading-6 bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] hover:opacity-90">
             Khám phá ngay
           </Button>
         </div>
 
-        {/* Mobile button */}
+        {/* Mobile/Tablet button (<1024px) */}
         <button
-          className="md:hidden p-2"
+          className="lg:hidden p-2"
           onClick={() => setMobileOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -115,9 +116,9 @@ export function Header() {
         </button>
       </div>
 
-      {/* Mobile panel (chỉ cao bằng menu) */}
+      {/* Mobile + Tablet menu */}
       {mobileOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg">
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg">
           <nav className="flex flex-col px-6 py-4">
             {navItems.map((item, index) => (
               <div key={index} className="flex flex-col">
