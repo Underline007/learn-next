@@ -1,12 +1,15 @@
+// src/components/nav/Header.tsx
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/shared/Logo";
+import { usePathname } from "next/navigation";
 
 const navItems = [
-  { label: "Trang chủ", href: "/", active: true },
+  { label: "Trang chủ", href: "/" },
   { label: "Giải pháp AI", href: "/#ai" },
   { label: "Chuyển đổi số", href: "/#digital-transformation" },
   {
@@ -18,68 +21,73 @@ const navItems = [
       { label: "Giải pháp số hóa", href: "/digital-solutions" },
     ],
   },
-  { label: "Liên hệ", href: "/#contact" },
+  { label: "Liên hệ", href: "/consultant" }, 
 ];
 
 export function Header() {
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
-  const toggleDropdown = (index: number) => {
-    setActiveDropdown(activeDropdown === index ? null : index);
-  };
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href); // highlight khi ở /lien-he
 
   return (
     <header
       className={`w-full absolute top-0 left-0 z-50 transition-colors ${
-        mobileOpen ? "bg-white " : "bg-transparent"
+        mobileOpen ? "bg-white border-b border-gray-200" : "bg-transparent"
       }`}
     >
       <div className="flex items-center justify-between px-6 md:px-[200px] py-4 md:py-6 h-[72px] md:h-[104px]">
-        {/* Logo */}
         <Logo className="h-8 md:h-10 w-auto" />
 
-        {/* Desktop Navigation */}
+        {/* Desktop */}
         <nav className="hidden md:flex items-center gap-[56px]">
           {navItems.map((item, index) => (
             <div key={index} className="relative">
-              <a
-                href={item.href}
-                onClick={
-                  item.hasDropdown
-                    ? (e) => {
-                        e.preventDefault();
-                        toggleDropdown(index);
-                      }
-                    : undefined
-                }
-                className={`flex items-center gap-2 text-[16px] leading-6 transition-colors ${
-                  item.active
-                    ? "font-semibold text-[#112639] border-b-2 border-[#112639] pb-2"
-                    : "font-normal text-[#112639] hover:text-[#1851C1]"
-                }`}
-              >
-                {item.label}
-                {item.hasDropdown && (
+              {item.hasDropdown ? (
+                <button
+                  type="button"
+                  onClick={() =>
+                    setActiveDropdown(activeDropdown === index ? null : index)
+                  }
+                  className={`flex items-center gap-2 text-[16px] leading-6 ${
+                    isActive(item.href)
+                      ? "font-semibold text-[#112639] border-b-2 border-[#112639] pb-2"
+                      : "font-normal text-[#112639] hover:text-[#1851C1]"
+                  }`}
+                >
+                  {item.label}
                   <ChevronDown
                     className={`h-5 w-5 transition-transform ${
                       activeDropdown === index ? "rotate-180" : ""
                     }`}
                   />
-                )}
-              </a>
+                </button>
+              ) : (
+                <Link
+                  href={item.href}
+                  className={`flex items-center gap-2 text-[16px] leading-6 ${
+                    isActive(item.href)
+                      ? "font-semibold text-[#112639] border-b-2 border-[#112639] pb-2"
+                      : "font-normal text-[#112639] hover:text-[#1851C1]"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              )}
 
-              {/* Dropdown (desktop) */}
+              {/* Dropdown desktop */}
               {item.hasDropdown && activeDropdown === index && (
-                <div className="absolute top-[52px] left-0 w-[171px] rounded-xl border border-[#C2D9FF] bg-white shadow-md flex flex-col p-4 gap-3 z-50">
-                  {item.submenu?.map((sub, subIdx) => (
-                    <a
-                      key={subIdx}
+                <div className="absolute top-[52px] left-0 w-[220px] rounded-xl border border-[#C2D9FF] bg-white shadow-md flex flex-col p-4 gap-3 z-50">
+                  {item.submenu?.map((sub, i) => (
+                    <Link
+                      key={i}
                       href={sub.href}
-                      className="text-[#112639] text-[16px] leading-6 hover:text-[#1851C1] transition-colors"
+                      className="text-[#112639] text-[16px] leading-6 hover:text-[#1851C1]"
                     >
                       {sub.label}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -87,71 +95,80 @@ export function Header() {
           ))}
         </nav>
 
-        {/* CTA Button Desktop */}
         <div className="hidden md:block">
-          <Button
-            className="h-14 px-6 rounded-full text-white text-[16px] font-semibold leading-6 
-        bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] hover:opacity-90 transition"
-          >
+          <Button className="h-14 px-6 rounded-full text-white text-[16px] font-semibold leading-6 bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] hover:opacity-90">
             Khám phá ngay
           </Button>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile button */}
         <button
           className="md:hidden p-2"
-          onClick={() => setMobileOpen(!mobileOpen)}
+          onClick={() => setMobileOpen((v) => !v)}
           aria-label="Toggle menu"
         >
           {mobileOpen ? (
-            <X className="h-6 w-6 text-[#112639]" />
+            <X className="h-6 w-6" />
           ) : (
-            <Menu className="h-6 w-6 text-[#112639]" />
+            <Menu className="h-6 w-6" />
           )}
         </button>
       </div>
 
-      {/* Mobile Menu Panel */}
+      {/* Mobile panel (chỉ cao bằng menu) */}
       {mobileOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg">
           <nav className="flex flex-col px-6 py-4">
             {navItems.map((item, index) => (
               <div key={index} className="flex flex-col">
-                <button
-                  onClick={() =>
-                    item.hasDropdown
-                      ? toggleDropdown(index)
-                      : setMobileOpen(false)
-                  }
-                  className={`flex items-center justify-between py-3 text-[16px] leading-6 ${
-                    item.active
-                      ? "font-semibold text-[#112639]"
-                      : "font-normal text-[#112639]"
-                  }`}
-                >
-                  {item.label}
-                  {item.hasDropdown && (
-                    <ChevronDown
-                      className={`h-5 w-5 transition-transform ${
-                        activeDropdown === index ? "rotate-180" : ""
+                {item.hasDropdown ? (
+                  <>
+                    <button
+                      onClick={() =>
+                        setActiveDropdown(
+                          activeDropdown === index ? null : index
+                        )
+                      }
+                      className={`flex items-center justify-between py-3 text-[16px] ${
+                        isActive(item.href)
+                          ? "font-semibold text-[#112639]"
+                          : "font-normal text-[#112639]"
                       }`}
-                    />
-                  )}
-                </button>
-
-                {item.hasDropdown && activeDropdown === index && (
-                  <div className="pl-4 flex flex-col border-l border-[#C2D9FF] ml-2 mb-2">
-                    {item.submenu?.map((sub, subIdx) => (
-                      <a
-                        key={subIdx}
-                        href={sub.href}
-                        onClick={() => setMobileOpen(false)}
-                        className="py-2 text-[15px] text-[#112639] hover:text-[#1851C1]"
-                      >
-                        {sub.label}
-                      </a>
-                    ))}
-                  </div>
+                    >
+                      {item.label}
+                      <ChevronDown
+                        className={`h-5 w-5 transition-transform ${
+                          activeDropdown === index ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                    {activeDropdown === index && (
+                      <div className="pl-4 ml-2 mb-2 flex flex-col border-l border-[#C2D9FF]">
+                        {item.submenu?.map((sub, i) => (
+                          <Link
+                            key={i}
+                            href={sub.href}
+                            className="py-2 text-[15px] text-[#112639] hover:text-[#1851C1]"
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {sub.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className={`py-3 text-[16px] ${
+                      isActive(item.href)
+                        ? "font-semibold text-[#112639]"
+                        : "font-normal text-[#112639]"
+                    }`}
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
                 )}
               </div>
             ))}

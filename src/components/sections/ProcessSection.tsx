@@ -66,7 +66,7 @@ export function ProcessSection() {
             {/* Center Logo */}
             <div className="absolute inset-[200px] rounded-full bg-white flex items-center justify-center shadow-md">
               <Image
-                src="/frame-177.svg"
+                src="/images/logo_icon.svg"
                 alt="Antco Logo"
                 width={120}
                 height={120}
