@@ -1,5 +1,5 @@
 export { CompanyIntro } from "./CompanyIntro";
-export { ProcessSection } from "./ProcessSection";
+export { ProcessSection} from "./ProcessSection"
 export { EcoSystemSection } from "./EcoSystemSection";
 export { PartnersSection } from "./PartnersSection";
 export { SolutionsSection } from "./SolutionsSection";

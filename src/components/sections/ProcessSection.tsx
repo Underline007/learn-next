@@ -11,32 +11,44 @@ export function ProcessSection() {
       title: "Xác định vấn đề",
       description:
         "Antco đề cao sự tương tác và thấu hiểu để xác định và tìm ra các thách thức mà đối tác đang gặp phải",
-      icon: "/info.png",
-      desktop: "left-[200px] top-[360px] text-right items-end",
+      icon: "/images/Solution.svg",
+      desktop: {
+        container:
+          "absolute left-[200px] top-[360px] flex flex-col items-end text-right",
+      },
     },
     {
       id: 2,
       title: "Triển khai demo",
       description:
         "Dựa từ sự thấu hiểu, từ nền tảng công nghệ, Antco sẽ tạo ra những demo cho các giải pháp sáng tạo, phù hợp nhất cho từng sản phẩm.",
-      icon: "/paper.png",
-      desktop: "right-[200px] top-[351px] text-left items-start",
+      icon: "/images/Solution-2.svg",
+      desktop: {
+        container:
+          "absolute right-[200px] top-[351px] flex flex-col items-start text-left",
+      },
     },
     {
       id: 3,
       title: "Xây dựng giải pháp cộng tác",
       description:
         "Antco phối hợp để phát triển và tích hợp giải pháp liên tục giúp khách hàng dễ dàng theo dõi tiến độ và đưa ra phản hồi kịp thời, tối đa hoá chất lượng sản phẩm.",
-      icon: "/icon-solution.svg",
-      desktop: "left-[200px] bottom-[160px] text-right items-end",
+      icon: "/images/Solution-1.svg",
+      desktop: {
+        container:
+          "absolute left-[200px] bottom-[160px] flex flex-col items-end text-right",
+      },
     },
     {
       id: 4,
       title: "Phát triển đề xuất",
       description:
         "Antco xây dựng các đề xuất giải pháp chi tiết để đáp ứng và cải tiến sản phẩm theo sự đổi mới công nghệ cho đối tác.",
-      icon: "/icon-solution-5.svg",
-      desktop: "right-[200px] bottom-[160px] text-left items-start",
+      icon: "/images/Solution-3.svg",
+      desktop: {
+        container:
+          "absolute right-[200px] bottom-[160px] flex flex-col items-start text-left",
+      },
     },
   ];
 
@@ -57,12 +69,14 @@ export function ProcessSection() {
 
         {/* ===== Desktop Layout ===== */}
         <div className="hidden lg:block relative h-[1112px]">
-          {/* Circle Center */}
+          {/* Circle Layers */}
           <div className="absolute w-[680px] h-[680px] left-1/2 top-[300px] -translate-x-1/2">
-            {/* Outer Border */}
+            {/* Outer circle */}
             <div className="absolute inset-0 rounded-full border-[8px] border-white/40"></div>
-            {/* Middle Circle */}
-            <div className="absolute inset-[45px] rounded-full bg-blue-500/20"></div>
+            {/* Middle circle */}
+            <div className="absolute inset-[45px] rounded-full bg-[#4491FF]/20"></div>
+            {/* Inner circle */}
+            <div className="absolute inset-[145px] rounded-full border border-white/40"></div>
             {/* Center Logo */}
             <div className="absolute inset-[200px] rounded-full bg-white flex items-center justify-center shadow-md">
               <Image
@@ -75,31 +89,47 @@ export function ProcessSection() {
             </div>
           </div>
 
-          {/* Step Cards */}
+          {/* Arrows */}
+          <div className="absolute w-7 h-6 bg-white rounded rotate-90 left-1/2 top-0 -translate-x-1/2"></div>
+          <div className="absolute w-7 h-6 bg-white rounded -rotate-90 left-1/2 bottom-0 -translate-x-1/2"></div>
+          <div className="absolute w-7 h-6 bg-white rounded rotate-180 top-1/2 right-0 -translate-y-1/2"></div>
+          <div className="absolute w-7 h-6 bg-white rounded top-1/2 left-0 -translate-y-1/2"></div>
+
+          {/* Steps */}
           {steps.map((step) => (
-            <Card
-              key={step.id}
-              className={`absolute w-[426px] bg-[#F5F8FF] border-2 border-white rounded-[24px] p-6 flex flex-col gap-4 ${step.desktop}`}
-            >
-              <Card.Title className="text-[24px] font-semibold text-[#112639]">
-                {step.title}
-              </Card.Title>
-              <Card.Description className="text-[#7B849F] text-[14px] leading-[20px]">
-                {step.description}
-              </Card.Description>
-            </Card>
+            <div key={step.id} className={step.desktop.container}>
+              {/* Icon Circle */}
+              <div className="w-[100px] h-[100px] rounded-full bg-white border-[14px] border-white/40 flex items-center justify-center shadow-md mb-6">
+                <Image
+                  src={step.icon}
+                  alt={step.title}
+                  width={56}
+                  height={56}
+                  className="object-contain"
+                />
+              </div>
+              {/* Card */}
+              <Card className="w-[426px] bg-[#F5F8FF] border-2 border-white rounded-[24px] p-6 flex flex-col gap-4">
+                <Card.Title className="text-[24px] font-semibold text-[#112639]">
+                  {step.title}
+                </Card.Title>
+                <Card.Description className="text-[#7B849F] text-[14px] leading-[20px]">
+                  {step.description}
+                </Card.Description>
+              </Card>
+            </div>
           ))}
         </div>
 
         {/* ===== Mobile Layout ===== */}
         <div className="lg:hidden flex flex-col items-center gap-10">
-          {/* Circle */}
-          <div className="relative w-[280px] h-[280px]">
+          {/* Circle Layers */}
+          <div className="relative w-[364px] h-[364px]">
             <div className="absolute inset-0 rounded-full border-4 border-white/40"></div>
-            <div className="absolute inset-10 rounded-full bg-blue-500/20"></div>
-            <div className="absolute inset-20 rounded-full bg-white flex items-center justify-center">
+            <div className="absolute inset-10 rounded-full bg-[#4491FF]/20"></div>
+            <div className="absolute inset-[80px] rounded-full bg-white flex items-center justify-center">
               <Image
-                src="/frame-177.svg"
+                src="/images/logo_icon.svg"
                 alt="Antco Logo"
                 width={80}
                 height={80}
@@ -113,14 +143,27 @@ export function ProcessSection() {
             {steps.map((step) => (
               <Card
                 key={`mobile-${step.id}`}
-                className="bg-[#F5F8FF] border-2 border-white rounded-xl p-5"
+                className="flex flex-row gap-4 bg-[#F5F8FF] border-2 border-white rounded-xl p-5 items-start"
               >
-                <Card.Title className="text-lg font-semibold text-[#112639] text-center">
-                  {step.title}
-                </Card.Title>
-                <Card.Description className="text-sm text-[#7B849F] text-center mt-2">
-                  {step.description}
-                </Card.Description>
+                {/* Icon Circle */}
+                <div className="w-[60px] h-[60px] rounded-full bg-white border-[6px] border-white/40 flex items-center justify-center">
+                  <Image
+                    src={step.icon}
+                    alt={step.title}
+                    width={34}
+                    height={34}
+                    className="object-contain"
+                  />
+                </div>
+                {/* Text */}
+                <div>
+                  <Card.Title className="text-lg font-semibold text-[#112639]">
+                    {step.title}
+                  </Card.Title>
+                  <Card.Description className="text-sm text-[#7B849F] mt-2">
+                    {step.description}
+                  </Card.Description>
+                </div>
               </Card>
             ))}
           </div>

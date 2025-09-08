@@ -79,7 +79,7 @@ export function Header() {
 
               {/* Dropdown desktop */}
               {item.hasDropdown && activeDropdown === index && (
-                <div className="absolute top-[52px] left-0 w-[220px] rounded-xl border border-[#C2D9FF] bg-white shadow-md flex flex-col p-4 gap-3 z-50">
+                <div className="absolute top-[36px] left-0 w-[220px] rounded-xl border border-[#C2D9FF] bg-white shadow-md flex flex-col p-4 gap-3 z-50">
                   {item.submenu?.map((sub, i) => (
                     <Link
                       key={i}
