@@ -12,10 +12,10 @@ const features = [
 ];
 
 const techItems = [
-  { label: "CRM", src: "/images/union.png" },
-  { label: "AI", src: "/images/union-2.png" },
-  { label: "DATA", src: "/images/union-3.png"},
-  { label: "TRUST", src: "/images/union-1.png" },
+  { label: "CRM", src: "/images/union/union.png" },
+  { label: "AI", src: "/images/union/union-2.png" },
+  { label: "DATA", src: "/images/union/union-3.png" },
+  { label: "TRUST", src: "/images/union/union-1.png" },
 ];
 
 export function MissionSection() {
@@ -84,13 +84,14 @@ export function MissionSection() {
           <Button
             variant="ghost"
             className="
-    relative w-[184px] h-[56px] 
-    flex items-center justify-center px-6 py-4
-    font-inter font-semibold text-[16px] leading-6 text-[#1792ED] 
-    border rounded-full
-    [border-image:linear-gradient(96.96deg,#2BA9FA_0.85%,#1851C1_97.4%)_1]
-    
-  "
+            flex items-center justify-center
+            px-6 py-4 gap-2
+            w-[184px] h-[56px]
+            rounded-full
+            font-inter font-semibold text-[16px] leading-6 text-[#1792ED]
+            border border-[#1792ED]
+            bg-white
+          "
           >
             Nhận tư vấn ngay
           </Button>
