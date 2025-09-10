@@ -20,7 +20,7 @@ export function CompanyIntro() {
       <Header />
       <section className="relative z-10 pt-8 pb-16 md:pt-20 md:pb-32">
         <Container>
-          <div className="grid grid-cols-1 md:grid-cols-[1.2fr_0.8fr] gap-12 md:gap-16 items-center min-h-[70vh]">
+          <div className="grid grid-cols-1 md:grid-cols-[1.2fr_0.8fr] gap-12 md:gap-16 items-center min-h-[70vh] mr-36">
             {/* Content Section */}
             <div className="space-y-8 md:space-y-12">
               {/* Main Headings */}
@@ -85,9 +85,6 @@ export function CompanyIntro() {
                 </Button>
               </div>
             </div>
-
-            {/* Visual Section - Visible on larger screens */}
-            <div className="hidden md:block relative"></div>
           </div>
         </Container>
       </section>
