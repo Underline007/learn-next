@@ -85,6 +85,7 @@ export function AboutUsSection() {
           </p>
 
           <Button
+            withArrow
             className="
               mt-5 md:mt-6 h-14 px-6 rounded-full
               bg-white text-[#112639] hover:bg-white/90

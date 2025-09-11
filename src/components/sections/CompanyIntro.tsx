@@ -91,6 +91,7 @@ export function CompanyIntro() {
                 </div>
 
                 <Button
+                  withArrow
                   onClick={handleSubmit}
                   className="inline-flex items-center justify-center px-6 py-6 rounded-full
                              text-white font-medium shadow-md
