@@ -61,8 +61,8 @@ export function Header() {
           scrolled || mobileOpen
             ? "0 4px 16px rgba(0,0,0,0.1)"
             : "0 0 0 rgba(0,0,0,0)",
-        marginLeft: scrolled ? screenWidth * 0.05 : 0, // 5% thay vì 10%
-        marginRight: scrolled ? screenWidth * 0.05 : 0,
+        marginLeft: scrolled ? screenWidth * 0.02 : 0, // 5% thay vì 10%
+        marginRight: scrolled ? screenWidth * 0.02 : 0,
         marginTop: scrolled ? "0.75rem" : "0rem",
       }}
       transition={{ duration: 0.4, ease: "easeInOut" }}

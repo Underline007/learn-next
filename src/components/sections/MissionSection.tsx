@@ -69,12 +69,12 @@ export function MissionSection() {
               </p>
 
               {/* Badges (Frame 251/252) */}
-              <div className="flex flex-wrap gap-3 pt-1">
+              <div className="flex flex-col gap-3 pt-1">
                 {features.map((f) => (
                   <Badge
                     key={f.text}
                     className="
-                      flex items-center gap-2 px-3 py-1.5
+                      flex w-fit items-center gap-2 px-3 py-1.5
                       bg-[#D8EFFF] text-[#0749AD] border-0 rounded-full
                     "
                   >
