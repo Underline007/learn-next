@@ -77,21 +77,11 @@ export function SolutionsSection() {
         </p>
       </header>
 
-      <div className="w-full max-w-[1520px] flex flex-col gap-6 lg:gap-8">
-        {/* Hàng 1 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {solutionCards.slice(0, 4).map((card) => (
+      <div className="w-full max-w-[1520px] flex flex-col gap-6 lg:gap-8 justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 ">
+          {solutionCards.map((card) => (
             <SolutionCard key={card.id} {...card} />
           ))}
-        </div>
-
-        {/* Hàng 2 */}
-        <div className="flex justify-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 w-full max-w-[1140px]">
-            {solutionCards.slice(4).map((card) => (
-              <SolutionCard key={card.id} {...card} />
-            ))}
-          </div>
         </div>
       </div>
     </section>

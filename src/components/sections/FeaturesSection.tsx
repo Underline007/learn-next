@@ -82,15 +82,20 @@ export function FeaturesSection() {
       </header>
 
       {/* Content container */}
-      <div className="w-full max-w-[1520px] bg-[#EEF2F8] border-4 lg:border-[16px] border-[#dfe5ee30] rounded-[10px] lg:rounded-[40px] overflow-hidden">
+      <div className="w-full max-w-[1520px] bg-[#EEF2F8] border-4 lg:border-[16px] border-[#dfe5ee30] rounded-3xl overflow-hidden">
         {/* Top nav */}
-        <div className="flex items-center justify-between px-2 py-1 sm:px-4 sm:py-2 md:px-6 md:py-4 border-b border-[#dee4ed30]">
+        <div className="flex items-center justify-between px-2 py-1 mt-2 sm:px-4 sm:py-2 md:px-6 md:py-4 border-b border-[#dee4ed30] rounded-3xl ">
           <Logo />
-          <div className="flex items-center gap-1.5 sm:gap-1.5 md:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-1.5 md:gap-3 mt-1 sm:mt-0 ">
             {/* Upgrade button */}
-            <Button className="bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] text-white rounded-full px-2.5 py-2.5 text-[10px] sm:px-0.5 sm:py-0.5 sm:text-xs md:px-4 md:py-2 md:text-sm flex items-center gap-1 sm:gap-1.5">
-              <CloudLightningIcon className="w-3 h-3 sm:w-1 sm:h-1 md:w-5 md:h-5" />
-              <span className="hidden xs:inline">Nâng cấp</span>
+            <Button
+              className="flex items-center justify-center rounded-full 
+             w-9 h-9 sm:w-auto sm:h-auto
+             bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] 
+             text-white text-xs font-semibold gap-1 sm:gap-1.5 px-0 sm:px-4 sm:py-2"
+            >
+              <CloudLightningIcon className="w-4 h-4 mr-1 sm:w-5 sm:h-5" />
+              <span className="hidden sm:inline">Nâng cấp</span>
             </Button>
 
             {/* Icon buttons */}
@@ -99,9 +104,9 @@ export function FeaturesSection() {
                 key={i}
                 size="sm"
                 variant="ghost"
-                className="rounded-full bg-black/5 backdrop-blur-md w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center"
+                className="rounded-full w-9 h-9 flex items-center justify-center bg-black/5 backdrop-blur-md"
               >
-                <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-neutral-1" />
+                <Icon className="w-5 h-5 text-neutral-1" />
               </Button>
             ))}
 
@@ -117,9 +122,9 @@ export function FeaturesSection() {
         {/* Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(250px,304px)_1fr_minmax(250px,304px)] gap-4 lg:gap-6 p-4 md:p-6">
           {/* Left Sidebar */}
-          <Card className="hidden lg:block h-auto lg:h-[739px]">
+          <Card className="hidden lg:block h-auto lg:h-[739px] rounded-3xl">
             <Card.Content className="flex flex-col h-full p-3 lg:p-4 gap-3 lg:gap-4">
-              <div className="flex justify-between items-center border-b pb-2 text-sm font-semibold text-neutral-1">
+              <div className="flex justify-between items-center border-b pb-2 text-sm font-semibold text-neutral-1 ">
                 Dữ liệu
                 <PanelRight className="w-4 h-4" />
               </div>
@@ -169,7 +174,7 @@ export function FeaturesSection() {
           </Card>
 
           {/* Chat Section */}
-          <Card className="h-auto lg:h-[739px]">
+          <Card className="h-auto lg:h-[739px] rounded-3xl">
             <Card.Content className="flex flex-col h-full">
               <div className="flex justify-between items-center border-b px-3 py-2 text-sm">
                 <h3 className="font-semibold text-neutral-1">Chat</h3>
@@ -268,7 +273,7 @@ export function FeaturesSection() {
           </Card>
 
           {/* Right Sidebar */}
-          <Card className="hidden lg:block h-auto lg:h-[739px]">
+          <Card className="hidden lg:block h-auto lg:h-[739px] rounded-3xl">
             <Card.Content className="flex flex-col h-full p-0">
               {/* Header bar */}
               <div className="flex items-center justify-between w-full px-5 py-4 bg-white border-b border-[#CFDBEB]">
@@ -303,7 +308,7 @@ export function FeaturesSection() {
                 </div>
               </div>
               {/* Progress section */}
-              <div className="px-5 py-4 space-y-3 bg-white">
+              <div className="px-5 py-4 space-y-3 bg-white rounded-3xl">
                 <h4 className="font-semibold text-[14px] text-[#112639]">
                   Tiến trình (1)
                 </h4>
