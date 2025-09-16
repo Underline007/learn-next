@@ -29,7 +29,7 @@ export function CompanyIntro() {
           alt="Company Background"
           fill
           priority
-          className="object-cover lg:object-[-50px_center]"
+          className="object-cover"
         />
 
         {/* Cube overlay: chỉ mobile */}

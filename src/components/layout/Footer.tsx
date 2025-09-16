@@ -37,65 +37,22 @@ export function Footer() {
   return (
     <footer className="w-full">
       {/* TOP AREA */}
-      <div className="bg-white">
-        <div className="mx-auto w-full max-w-[1920px] px-4 sm:px-6 lg:px-10 py-10 lg:py-12 2xl:py-0 relative">
-          {/* GRID cho lg–xl */}
-          <div className="lg:grid 2xl:hidden grid-cols-1 lg:grid-cols-[360px_1fr] gap-12">
-            {/* Left */}
-            <div className="flex flex-col items-start gap-6">
-              <Logo className="h-12 w-auto" />
-              <p className="max-w-[360px] text-[#7B849F] text-[15px] leading-6">
-                Nền tảng AI của Antco giúp doanh nghiệp khai thác tối đa trí tuệ
-                nhân tạo với giải pháp tùy chỉnh
-              </p>
-              <div className="flex items-center gap-4">
-                {socialIcons.map((icon) => (
-                  <Image
-                    key={icon.alt}
-                    src={icon.src}
-                    alt={icon.alt}
-                    width={36}
-                    height={36}
-                    className="h-9 w-9"
-                  />
-                ))}
-              </div>
-            </div>
-            {/* Right */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-10">
-              {cols.map((col) => (
-                <div key={col.title} className="flex flex-col gap-4">
-                  <h3 className="text-[#112639] font-semibold text-lg leading-7">
-                    {col.title}
-                  </h3>
-                  <ul className="flex flex-col gap-3">
-                    {col.links.map((l) => (
-                      <li
-                        key={l}
-                        className="text-[#7B849F] text-sm leading-6 hover:text-[#1792ED]"
-                      >
-                        {l}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 2XL absolute layout theo Figma nhưng responsive */}
-          <div className="hidden 2xl:block relative w-full max-w-[1920px] h-[396px] mx-auto">
+      <div className="w-full bg-white">
+        {/* wrapper cho full màn hình */}
+        <div className="w-full px-[clamp(16px,5vw,120px)]">
+          {/* container chuẩn Figma */}
+          <div className="relative mx-auto w-full max-w-[1920px] h-[396px]">
             {/* Logo */}
-            <div className="absolute left-[10vw] top-[82px]">
+            <div className="absolute left-[200px] top-[82px]">
               <Logo className="h-14 w-auto" />
             </div>
             {/* Desc */}
-            <p className="absolute left-[10vw] top-[165px] max-w-[318px] text-[#7B849F] text-[16px] leading-6">
+            <p className="absolute left-[200px] top-[165px] max-w-[318px] text-[#7B849F] text-[16px] leading-6">
               Nền tảng AI của Antco giúp doanh nghiệp khai thác tối đa trí tuệ
               nhân tạo với giải pháp tùy chỉnh
             </p>
             {/* Social */}
-            <div className="absolute left-[10vw] top-[274px] flex gap-4">
+            <div className="absolute left-[200px] top-[274px] flex gap-4">
               {socialIcons.map((icon) => (
                 <Image
                   key={icon.alt}
@@ -108,7 +65,7 @@ export function Footer() {
               ))}
             </div>
             {/* Links */}
-            <div className="absolute right-[10vw] top-[82px] flex gap-[6vw]">
+            <div className="absolute right-[200px] top-[82px] flex gap-[100px]">
               {cols.map((col) => (
                 <div key={col.title} className="flex flex-col gap-4">
                   <h3 className="text-[#112639] font-semibold text-[24px] leading-8">
@@ -135,8 +92,10 @@ export function Footer() {
       <div className="w-full bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] py-4 lg:py-6">
         <div
           className="
-            w-full max-w-[1920px] mx-auto
-            px-4 sm:px-6 lg:px-[clamp(40px,10vw,170px)]
+            w-full 
+            max-w-[clamp(1280px,85vw,3000px)] 
+            mx-auto
+            px-[clamp(16px,4vw,80px)]
             flex flex-col items-start gap-2
             sm:flex-row sm:items-center sm:justify-between
           "
