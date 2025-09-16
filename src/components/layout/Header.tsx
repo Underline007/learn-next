@@ -6,7 +6,7 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/shared/Logo";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, animate } from "framer-motion";
 
 const navItems = [
   { label: "Trang chủ", href: "/" },
@@ -48,6 +48,16 @@ export function Header() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
+  // scroll về đầu trang với framer-motion
+  const scrollToTop = () => {
+    const currentY = window.scrollY;
+    animate(currentY, 0, {
+      duration: 0.6,
+      ease: "easeInOut",
+      onUpdate: (latest) => window.scrollTo(0, latest),
+    });
+  };
+
   return (
     <motion.header
       initial={false}
@@ -61,8 +71,8 @@ export function Header() {
           scrolled || mobileOpen
             ? "0 4px 16px rgba(0,0,0,0.1)"
             : "0 0 0 rgba(0,0,0,0)",
-        marginLeft: scrolled ? screenWidth * 0.02 : 0,
-        marginRight: scrolled ? screenWidth * 0.02 : 0,
+        marginLeft: scrolled && screenWidth >= 1024 ? screenWidth * 0.02 : 0,
+        marginRight: scrolled && screenWidth >= 1024 ? screenWidth * 0.02 : 0,
         marginTop: scrolled ? "0.75rem" : "0rem",
       }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
@@ -80,8 +90,17 @@ export function Header() {
     `}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        {/* Logo */}
-        <Logo className="h-8 lg:h-10 w-auto" />
+        {/* Logo → scrollToTop khi click */}
+        <Link
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToTop();
+            setMobileOpen(false);
+          }}
+        >
+          <Logo className="h-8 lg:h-10 w-auto cursor-pointer" />
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-6 md:gap-8 lg:gap-10 xl:gap-14 relative">
@@ -132,6 +151,12 @@ export function Header() {
               ) : (
                 <Link
                   href={item.href}
+                  onClick={(e) => {
+                    if (item.href === "/") {
+                      e.preventDefault();
+                      scrollToTop();
+                    }
+                  }}
                   className={`flex items-center gap-2 text-[16px] leading-6 whitespace-nowrap
             ${
               isActive(item.href)
@@ -202,12 +227,18 @@ export function Header() {
                 ) : (
                   <Link
                     href={item.href}
+                    onClick={(e) => {
+                      if (item.href === "/") {
+                        e.preventDefault();
+                        scrollToTop();
+                      }
+                      setMobileOpen(false);
+                    }}
                     className={`block py-2 px-2 rounded-md ${
                       isActive(item.href)
                         ? "font-semibold text-[#112639]"
                         : "font-normal text-[#112639]"
                     }`}
-                    onClick={() => setMobileOpen(false)}
                   >
                     {item.label}
                   </Link>

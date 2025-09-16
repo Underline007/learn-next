@@ -12,11 +12,10 @@ type Step = {
   icon: string;
 };
 
-/** Typewriter không dùng variants — render substring để tránh tràn/giật layout */
 function Typewriter({
   text,
   startDelay = 0,
-  speed = 30, // ms/char
+  speed = 30,
   className = "",
   as: Tag = "span",
 }: {
@@ -63,7 +62,6 @@ function Typewriter({
       style={{ wordBreak: "break-word", overflowWrap: "anywhere" }}
     >
       {text.slice(0, count)}
-      {/* Con trỏ nháy (opt) */}
       {count < text.length && (
         <span className="inline-block w-[1px] align-baseline animate-pulse h-[1em] translate-y-[2px] bg-[#112639] ml-[2px]" />
       )}
@@ -112,24 +110,26 @@ export function ProcessSection() {
     s: Step;
     align?: "left" | "right";
     className?: string;
-    delay?: number; // delay gõ của từng card (tạo hiệu ứng cascade)
+    delay?: number;
   }) => {
-    const titleSpeed = 25; // ms/char
-    const descSpeed = 12; // ms/char
-    const descDelay = delay + s.title.length * titleSpeed + 200; // gõ mô tả sau tiêu đề
+    const titleSpeed = 25;
+    const descSpeed = 12;
+    const descDelay = delay + s.title.length * titleSpeed + 200;
 
     return (
       <Card
         className={[
-          "bg-[#F5F8FF] border-2 border-white shadow-sm rounded-[16px] p-4",
-          "md:rounded-[20px] md:p-5",
-          "lg:rounded-[24px] lg:p-6",
-          "lg:w-[426px]",
-          "overflow-hidden", // QUAN TRỌNG: tránh tràn
+          "bg-[#F5F8FF] border-2 border-white shadow-sm",
+          "rounded-[12px] p-3",
+          "sm:rounded-[14px] sm:p-4",
+          "md:rounded-[16px] md:p-5",
+          "lg:rounded-[20px] lg:p-6",
+          "xl:rounded-[24px] xl:p-8",
+          "overflow-hidden w-full",
           className,
         ].join(" ")}
       >
-        <div className={align === "right" ? "lg:text-right" : ""}>
+        <div className={align === "right" ? "xl:text-right" : ""}>
           <Typewriter
             as="h3"
             text={s.title}
@@ -142,7 +142,13 @@ export function ProcessSection() {
             text={s.description}
             startDelay={descDelay}
             speed={descSpeed}
-            className="text-[#7B849F] text-[14px] leading-5 md:text-[14px] md:leading-[24px]"
+            className="
+              text-[#7B849F]
+              text-[13px] leading-5
+              md:text-[14px] md:leading-6
+              lg:text-[15px] lg:leading-[22px]
+              xl:text-[16px] xl:leading-[24px]
+            "
           />
         </div>
       </Card>
@@ -161,14 +167,14 @@ export function ProcessSection() {
   const delayFor = (id: number) => (id - 1) * 250;
 
   return (
-    <section className="w-full bg-[#DEEAFB] pb-10 md:pb-12 lg:pb-0 overflow-x-hidden">
+    <section className="w-full bg-[#DEEAFB] pb-10 md:pb-12 xl:pb-0 overflow-x-hidden">
       <div className="mx-auto max-w-[1918px] px-4 md:px-6 relative">
         {/* Header */}
-        <header className="text-center mx-auto max-w-[1006px] pt-8 md:pt-12 lg:pt-[100px] mb-8 md:mb-10 lg:mb-6">
-          <h2 className="text-[#0749AD] font-semibold leading-[1.3] mb-3 md:mb-4 text-[28px] md:text-[40px] lg:text-[56px]">
+        <header className="text-center mx-auto max-w-[1006px] pt-8 md:pt-12 xl:pt-[100px] mb-8 md:mb-10 xl:mb-6">
+          <h2 className="text-[#0749AD] font-semibold leading-[1.3] mb-3 md:mb-4 text-[28px] md:text-[40px] xl:text-[56px]">
             Quy trình phát triển 4 bước
           </h2>
-          <p className="text-[#7B849F] mx-auto text-sm md:text-base lg:text-[20px] lg:leading-8">
+          <p className="text-[#7B849F] mx-auto text-sm md:text-base xl:text-[20px] xl:leading-8">
             Antco cung cấp quy trình phát triển AI linh hoạt, giúp doanh nghiệp
             dễ dàng tích hợp AI vào các hệ thống hiện có như CRM, ERP và nền
             tảng thương mại điện tử.
@@ -179,22 +185,22 @@ export function ProcessSection() {
         <div
           className="
             relative mx-auto max-w-[1918px]
-            [--d:380px] md:[--d:520px] lg:[--d:clamp(440px,42vw,680px)]
+            [--d:380px] md:[--d:520px] xl:[--d:clamp(440px,42vw,680px)]
             [--card-w:min(426px,32vw)]
             [--gap-x:clamp(16px,2vw,24px)]
             [--icon-gap:clamp(10px,1.2vw,16px)]
             [--icon:clamp(60px,9vw,72px)]
-            lg:h-[calc(var(--d)+100px)]
+            xl:h-[calc(var(--d)+100px)]
           "
         >
-          {/* process.svg — 1 lần */}
+          {/* process.svg */}
           <Image
             src="/images/process.svg"
             alt="Process"
             priority
             width={680}
             height={680}
-            className="block mx-auto lg:absolute lg:left-1/2 lg:-translate-x-1/2"
+            className="block mx-auto xl:absolute xl:left-1/2 xl:-translate-x-1/2"
             style={{
               width: "var(--d)",
               height: "var(--d)",
@@ -203,7 +209,7 @@ export function ProcessSection() {
           />
 
           {/* Mobile & Tablet */}
-          <div className="lg:hidden mt-8 md:mt-10 space-y-5 md:space-y-6">
+          <div className="xl:hidden mt-8 md:mt-10 space-y-5 md:space-y-6">
             {steps.map((s) => (
               <div
                 key={s.id}
@@ -218,7 +224,7 @@ export function ProcessSection() {
           </div>
 
           {/* Desktop */}
-          <div className="hidden lg:block">
+          <div className="hidden xl:block">
             {/* Trái trên */}
             <div
               className="absolute max-w-full"
