@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion, Variants } from "framer-motion";
 
 type Member = {
   title: string;
@@ -35,6 +36,28 @@ const members: Member[] = [
     image: "/images/members/member_4.png",
   },
 ];
+
+// Dùng cubic-bezier cho easeOut (chuẩn Material-ish): [0.22, 1, 0.36, 1]
+const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const containerVariants: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+      when: "beforeChildren",
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, x: -40 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.55, ease: EASE_OUT },
+  },
+};
 
 export function MembersSection() {
   return (
@@ -75,21 +98,29 @@ export function MembersSection() {
         </p>
       </div>
 
-      {/* Grid */}
-      <div
+      {/* Grid + animation */}
+      <motion.div
         className="
           grid gap-4 md:gap-6 lg:gap-8
           grid-cols-2 lg:grid-cols-4
           w-full max-w-[1520px]
         "
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.25 }}
       >
-        {members.map((m) => (
-          <article
+        {members.map((m, idx) => (
+          <motion.article
             key={m.name}
+            variants={itemVariants}
+            // Có thể bỏ hẳn prop transition dưới nếu muốn dùng đúng variants.
+            transition={{ duration: 0.55, ease: EASE_OUT, delay: idx * 0.03 }}
             className="
               flex flex-col items-center gap-3 md:gap-6
               w-full max-w-[182px] md:max-w-[356px] mx-auto
             "
+            whileHover={{ y: -4 }}
           >
             {/* Card */}
             <div
@@ -99,6 +130,7 @@ export function MembersSection() {
                 rounded-[16px] md:rounded-[32px]
                 overflow-hidden
                 bg-gradient-to-br from-[#EAF6FF] via-[#F9FCFF] to-white
+                will-change-transform
               "
             >
               {/* glow */}
@@ -156,9 +188,9 @@ export function MembersSection() {
                 {m.description}
               </p>
             </div>
-          </article>
+          </motion.article>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

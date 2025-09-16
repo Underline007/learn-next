@@ -77,7 +77,7 @@ export function SolutionsSection() {
         </p>
       </header>
 
-      <div className="w-full max-w-[1520px] flex flex-col gap-6 lg:gap-8 justify-center">
+      <div className="w-full max-w-[1520px] flex justify-center items-center flex-col gap-6 lg:gap-8 ">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 ">
           {solutionCards.map((card) => (
             <SolutionCard key={card.id} {...card} />

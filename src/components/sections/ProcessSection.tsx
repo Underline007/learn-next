@@ -3,6 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
+import { useInView } from "framer-motion";
 
 type Step = {
   id: 1 | 2 | 3 | 4;
@@ -10,6 +11,65 @@ type Step = {
   description: string;
   icon: string;
 };
+
+/** Typewriter không dùng variants — render substring để tránh tràn/giật layout */
+function Typewriter({
+  text,
+  startDelay = 0,
+  speed = 30, // ms/char
+  className = "",
+  as: Tag = "span",
+}: {
+  text: string;
+  startDelay?: number;
+  speed?: number;
+  className?: string;
+  as?: React.ElementType;
+}) {
+  const ref = React.useRef<HTMLElement | null>(null);
+  const inView = useInView(ref, { once: true, margin: "-15% 0px" });
+  const [count, setCount] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!inView) return;
+    let timer: number | NodeJS.Timeout;
+    let raf: number | NodeJS.Timeout;
+    const start = () => {
+      timer = setInterval(() => {
+        setCount((c) => {
+          if (c >= text.length) {
+            clearInterval(timer);
+            return c;
+          }
+          return c + 1;
+        });
+      }, speed);
+    };
+    if (startDelay > 0) {
+      raf = setTimeout(start, startDelay);
+    } else {
+      start();
+    }
+    return () => {
+      clearInterval(timer);
+      clearTimeout(raf);
+    };
+  }, [inView, startDelay, speed, text.length]);
+
+  return (
+    <Tag
+      ref={ref}
+      className={className}
+      style={{ wordBreak: "break-word", overflowWrap: "anywhere" }}
+    >
+      {text.slice(0, count)}
+      {/* Con trỏ nháy (opt) */}
+      {count < text.length && (
+        <span className="inline-block w-[1px] align-baseline animate-pulse h-[1em] translate-y-[2px] bg-[#112639] ml-[2px]" />
+      )}
+    </Tag>
+  );
+}
 
 export function ProcessSection() {
   const steps: Step[] = [
@@ -47,30 +107,47 @@ export function ProcessSection() {
     s,
     align = "left",
     className = "",
+    delay = 0,
   }: {
     s: Step;
     align?: "left" | "right";
     className?: string;
-  }) => (
-    <Card
-      className={[
-        "bg-[#F5F8FF] border-2 border-white shadow-sm rounded-[16px] p-4",
-        "md:rounded-[20px] md:p-5",
-        "lg:rounded-[24px] lg:p-6",
-        "lg:w-[426px]",
-        className,
-      ].join(" ")}
-    >
-      <div className={align === "right" ? "lg:text-right" : ""}>
-        <h3 className="font-semibold text-[#112639] mb-2 text-[16px] leading-[22px] md:text-[20px] md:leading-[24px] lg:text-[24px] lg:leading-[32px]">
-          {s.title}
-        </h3>
-        <p className="text-[#7B849F] text-[14px] leading-5 md:text-[14px] md:leading-[24px]">
-          {s.description}
-        </p>
-      </div>
-    </Card>
-  );
+    delay?: number; // delay gõ của từng card (tạo hiệu ứng cascade)
+  }) => {
+    const titleSpeed = 25; // ms/char
+    const descSpeed = 12; // ms/char
+    const descDelay = delay + s.title.length * titleSpeed + 200; // gõ mô tả sau tiêu đề
+
+    return (
+      <Card
+        className={[
+          "bg-[#F5F8FF] border-2 border-white shadow-sm rounded-[16px] p-4",
+          "md:rounded-[20px] md:p-5",
+          "lg:rounded-[24px] lg:p-6",
+          "lg:w-[426px]",
+          "overflow-hidden", // QUAN TRỌNG: tránh tràn
+          className,
+        ].join(" ")}
+      >
+        <div className={align === "right" ? "lg:text-right" : ""}>
+          <Typewriter
+            as="h3"
+            text={s.title}
+            startDelay={delay}
+            speed={titleSpeed}
+            className="font-semibold text-[#112639] mb-2 text-[16px] leading-[22px] md:text-[20px] md:leading-[24px] lg:text-[24px] lg:leading-[32px]"
+          />
+          <Typewriter
+            as="p"
+            text={s.description}
+            startDelay={descDelay}
+            speed={descSpeed}
+            className="text-[#7B849F] text-[14px] leading-5 md:text-[14px] md:leading-[24px]"
+          />
+        </div>
+      </Card>
+    );
+  };
 
   const IconBadge = ({ src, alt }: { src: string; alt: string }) => (
     <div
@@ -80,6 +157,8 @@ export function ProcessSection() {
       <Image src={src} alt={alt} width={34} height={34} />
     </div>
   );
+
+  const delayFor = (id: number) => (id - 1) * 250;
 
   return (
     <section className="w-full bg-[#DEEAFB] pb-10 md:pb-12 lg:pb-0 overflow-x-hidden">
@@ -132,7 +211,7 @@ export function ProcessSection() {
               >
                 <IconBadge src={s.icon} alt={s.title} />
                 <div className="flex-1">
-                  <StepCard s={s} />
+                  <StepCard s={s} delay={delayFor(s.id)} />
                 </div>
               </div>
             ))}
@@ -150,7 +229,7 @@ export function ProcessSection() {
                 transform: "translateX(-100%)",
               }}
             >
-              <StepCard s={steps[0]} align="right" />
+              <StepCard s={steps[0]} delay={delayFor(1)} align="right" />
             </div>
 
             {/* Trái dưới */}
@@ -163,7 +242,7 @@ export function ProcessSection() {
                 transform: "translateX(-100%)",
               }}
             >
-              <StepCard s={steps[2]} align="right" />
+              <StepCard s={steps[2]} delay={delayFor(3)} align="right" />
             </div>
 
             {/* Phải trên */}
@@ -175,7 +254,7 @@ export function ProcessSection() {
                 width: "min(100%, var(--card-w))",
               }}
             >
-              <StepCard s={steps[1]} align="left" />
+              <StepCard s={steps[1]} delay={delayFor(2)} align="left" />
             </div>
 
             {/* Phải dưới */}
@@ -187,7 +266,7 @@ export function ProcessSection() {
                 width: "min(100%, var(--card-w))",
               }}
             >
-              <StepCard s={steps[3]} align="left" />
+              <StepCard s={steps[3]} delay={delayFor(4)} align="left" />
             </div>
           </div>
         </div>
