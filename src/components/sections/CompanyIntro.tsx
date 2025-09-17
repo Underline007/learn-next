@@ -62,17 +62,13 @@ export function CompanyIntro() {
               xl:mr-36
             "
           >
-            {/* ---- Desktop Content ---- */}
+            {/* ---- Desktop Content (slide từ trên xuống) ---- */}
             <motion.div
               className="hidden md:block space-y-6 mt-3 md:space-y-8"
-              initial="hidden"
-              whileInView="show"
+              initial={{ opacity: 0, y: -50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ staggerChildren: 0.2 }}
-              variants={{
-                hidden: {},
-                show: { transition: { staggerChildren: 0.2 } },
-              }}
             >
               <div className="space-y-2">
                 <Heading
@@ -129,7 +125,7 @@ export function CompanyIntro() {
               </div>
             </motion.div>
 
-            {/* ---- Mobile Card ---- */}
+            {/* ---- Mobile Card (slide từ dưới lên) ---- */}
             <motion.div
               className="
                 md:hidden
@@ -143,10 +139,10 @@ export function CompanyIntro() {
                 shadow-[0_8px_30px_rgba(0,0,0,0.08)]
                 flex flex-col gap-6
               "
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.6 }}
             >
               <div className="space-y-2">
                 <Heading

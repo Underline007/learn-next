@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/shared/Logo";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, animate } from "framer-motion";
 
 const navItems = [
@@ -29,6 +29,7 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const [screenWidth, setScreenWidth] = useState(0);
 
   useEffect(() => {
@@ -48,7 +49,6 @@ export function Header() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-  // scroll về đầu trang với framer-motion
   const scrollToTop = () => {
     const currentY = window.scrollY;
     animate(currentY, 0, {
@@ -71,8 +71,14 @@ export function Header() {
           scrolled || mobileOpen
             ? "0 4px 16px rgba(0,0,0,0.1)"
             : "0 0 0 rgba(0,0,0,0)",
-        marginLeft: scrolled && screenWidth >= 1024 ? screenWidth * 0.02 : 0,
-        marginRight: scrolled && screenWidth >= 1024 ? screenWidth * 0.02 : 0,
+        marginLeft:
+          scrolled && screenWidth >= 1024
+            ? screenWidth * 0.02
+            : screenWidth * 0.03,
+        marginRight:
+          scrolled && screenWidth >= 1024
+            ? screenWidth * 0.02
+            : screenWidth * 0.03,
         marginTop: scrolled ? "0.75rem" : "0rem",
       }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
@@ -90,12 +96,16 @@ export function Header() {
     `}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        {/* Logo → scrollToTop khi click */}
+        {/* Logo → giữ scrollToTop */}
         <Link
           href="/"
           onClick={(e) => {
             e.preventDefault();
-            scrollToTop();
+            if (pathname === "/") {
+              scrollToTop();
+            } else {
+              router.push("/");
+            }
             setMobileOpen(false);
           }}
         >
@@ -128,7 +138,6 @@ export function Header() {
                     />
                   </button>
 
-                  {/* Submenu */}
                   {activeDropdown === index && (
                     <ul
                       className="absolute top-full left-0 mt-2 w-56 bg-white shadow-lg rounded-lg py-2 z-50 border-[1px] border-[#C2D9FF]"
@@ -151,12 +160,7 @@ export function Header() {
               ) : (
                 <Link
                   href={item.href}
-                  onClick={(e) => {
-                    if (item.href === "/") {
-                      e.preventDefault();
-                      scrollToTop();
-                    }
-                  }}
+                  onClick={() => setMobileOpen(false)}
                   className={`flex items-center gap-2 text-[16px] leading-6 whitespace-nowrap
             ${
               isActive(item.href)
@@ -227,13 +231,7 @@ export function Header() {
                 ) : (
                   <Link
                     href={item.href}
-                    onClick={(e) => {
-                      if (item.href === "/") {
-                        e.preventDefault();
-                        scrollToTop();
-                      }
-                      setMobileOpen(false);
-                    }}
+                    onClick={() => setMobileOpen(false)}
                     className={`block py-2 px-2 rounded-md ${
                       isActive(item.href)
                         ? "font-semibold text-[#112639]"
