@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/shared/Logo";
 import { usePathname, useRouter } from "next/navigation";
-import { motion, animate } from "framer-motion";
+import { motion, animate, px } from "framer-motion";
 
 const navItems = [
   { label: "Trang chủ", href: "/" },
@@ -32,6 +32,8 @@ export function Header() {
   const router = useRouter();
   const [screenWidth, setScreenWidth] = useState(0);
 
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
     onScroll();
@@ -45,6 +47,20 @@ export function Header() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(e.target as Node)
+      ) {
+        setMobileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [mobileOpen]);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -71,23 +87,12 @@ export function Header() {
           scrolled || mobileOpen
             ? "0 4px 16px rgba(0,0,0,0.1)"
             : "0 0 0 rgba(0,0,0,0)",
-        marginLeft:
-          scrolled && screenWidth >= 1024
-            ? screenWidth * 0.02
-            : screenWidth * 0.03,
-        marginRight:
-          scrolled && screenWidth >= 1024
-            ? screenWidth * 0.02
-            : screenWidth * 0.03,
-        marginTop: scrolled ? "0.75rem" : "0rem",
+        marginLeft: scrolled && screenWidth >= 1024 ? screenWidth * 0.02 : 0,
+        marginRight: scrolled && screenWidth >= 1024 ? screenWidth * 0.02 : 0,
+        marginTop: scrolled && screenWidth >= 1024 ? "20px" : 0,
       }}
-      transition={{ duration: 0.4, ease: "easeInOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300
-    ${
-      mobileOpen
-        ? "rounded-t-xl sm:rounded-t-2xl md:rounded-t-3xl lg:rounded-[2.5rem]"
-        : "rounded-xl sm:rounded-2xl md:rounded-3xl lg:rounded-[2.5rem]"
-    }`}
+  ${mobileOpen ? " lg:rounded-[2.5rem]" : "  lg:rounded-[2.5rem]"}`}
     >
       <motion.div
         className={`flex items-center justify-between h-[72px] lg:h-[96px]
@@ -196,13 +201,10 @@ export function Header() {
         </button>
       </motion.div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation (no animation) */}
       {mobileOpen && (
-        <motion.nav
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
+        <div
+          ref={mobileMenuRef}
           className="lg:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md shadow-lg rounded-b-xl"
         >
           <ul className="flex flex-col p-4 gap-3">
@@ -244,7 +246,7 @@ export function Header() {
               </li>
             ))}
           </ul>
-        </motion.nav>
+        </div>
       )}
     </motion.header>
   );
