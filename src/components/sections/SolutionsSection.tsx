@@ -88,57 +88,79 @@ const solutionCards: SolutionCard[] = [
   },
 ];
 
+// Function to group cards into rows of 4
+function groupCardsIntoRows(cards: SolutionCard[]): SolutionCard[][] {
+  const rows: SolutionCard[][] = [];
+  for (let i = 0; i < cards.length; i += 4) {
+    rows.push(cards.slice(i, i + 4));
+  }
+  return rows;
+}
+
 export function SolutionsSection() {
   const [activeTab, setActiveTab] = React.useState<"product" | "solution">(
     "product"
   );
-
   const cards = activeTab === "product" ? productCards : solutionCards;
 
   return (
-    <section className="w-full bg-white px-4 md:px-8 lg:px-[200px] py-12 md:py-16 lg:py-[100px] flex flex-col items-center gap-12 md:gap-16 lg:gap-[60px]">
-      {/* Header */}
-      <header className="max-w-[1005px] text-center flex flex-col gap-3 md:gap-5">
-        <h2 className="text-[24px] md:text-[40px] lg:text-[56px] font-semibold text-[#0749AD] leading-[130%]">
-          {activeTab === "product"
-            ? "Antco - Dịch vụ & Giải pháp"
-            : "Antco - Giải pháp công nghệ"}
-        </h2>
-        <p className="text-sm md:text-base lg:text-[20px] text-[#7B849F] leading-[160%]">
-          Antco cung cấp các giải pháp AI thiết thực thúc đẩy tăng trưởng kinh
-          doanh.
-        </p>
+    <section className="w-full bg-white">
+      {/* Container: 2xl match design 1520px (4*356 + 3*32) */}
+      <div className="mx-auto px-4 sm:px-6 lg:px-10 xl:px-16 2xl:px-0 max-w-screen-xl 2xl:max-w-[1520px] py-12 md:py-16 lg:py-24">
+        {/* Header */}
+        <header className="max-w-[1005px] mx-auto text-center flex flex-col gap-3 md:gap-5">
+          <h2 className="text-[24px] md:text-[40px] lg:text-[56px] font-semibold text-[#0749AD] leading-[130%]">
+            {activeTab === "product"
+              ? "Antco - Dịch vụ & Giải pháp"
+              : "Antco - Giải pháp công nghệ"}
+          </h2>
+          <p className="text-sm md:text-base lg:text-[20px] text-[#7B849F] leading-[160%]">
+            Antco cung cấp các giải pháp AI thiết thực thúc đẩy tăng trưởng kinh
+            doanh.
+          </p>
 
-        {/* Tabs */}
-        <div className="flex gap-4 justify-center mt-4">
-          <button
-            onClick={() => setActiveTab("product")}
-            className={`px-6 py-3 rounded-full font-semibold text-base ${
-              activeTab === "product"
-                ? "bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] text-white"
-                : "text-[#1792ED] "
-            }`}
-          >
-            Sản phẩm
-          </button>
-          <button
-            onClick={() => setActiveTab("solution")}
-            className={`px-6 py-3 rounded-full font-semibold text-base ${
-              activeTab === "solution"
-                ? "bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] text-white"
-                : "text-[#1792ED] "
-            }`}
-          >
-            Giải pháp
-          </button>
+          {/* Tabs */}
+          <div className="flex gap-4 justify-center mt-4">
+            <button
+              onClick={() => setActiveTab("product")}
+              className={`px-6 py-3 rounded-full font-semibold text-base ${
+                activeTab === "product"
+                  ? "bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] text-white"
+                  : "text-[#1792ED]"
+              }`}
+            >
+              Sản phẩm
+            </button>
+            <button
+              onClick={() => setActiveTab("solution")}
+              className={`px-6 py-3 rounded-full font-semibold text-base ${
+                activeTab === "solution"
+                  ? "bg-gradient-to-r from-[#2BA9FA] to-[#1851C1] text-white"
+                  : "text-[#1792ED]"
+              }`}
+            >
+              Giải pháp
+            </button>
+          </div>
+        </header>
+
+        {/* Cards: flex-wrap + justify-center để hàng thiếu tự căn giữa.
+            - gap-x/y = 32px
+            - 2xl: mỗi item cố định 356px; <2xl: item co giãn an toàn */}
+        <div className="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-8">
+          {cards.map((card) => (
+            <div
+              key={card.id}
+              className="
+                w-full sm:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)]
+                2xl:basis-[356px] 2xl:grow-0 2xl:shrink-0
+                max-w-[356px]
+              "
+            >
+              <SolutionCard {...card} />
+            </div>
+          ))}
         </div>
-      </header>
-
-      {/* Cards grid */}
-      <div className="grid gap-6 lg:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full">
-        {cards.map((card) => (
-          <SolutionCard key={card.id} {...card} />
-        ))}
       </div>
     </section>
   );
@@ -147,16 +169,14 @@ export function SolutionsSection() {
 function SolutionCard({ icon, title, description }: SolutionCard) {
   return (
     <Card
-      hoverScale={1.05}
-      className="relative isolate flex flex-col items-start p-6 md:p-7 lg:p-8 gap-6 md:gap-7 lg:gap-9 rounded-[24px] lg:rounded-[32px] bg-[rgba(43,144,250,0.07)] border-2 shadow-none h-full"
+      className="relative isolate flex flex-col items-start p-6 md:p-7 lg:p-8 gap-6 md:gap-7 lg:gap-9
+                 rounded-[24px] lg:rounded-[32px] bg-[rgba(43,144,250,0.07)] border-2 shadow-none h-full w-full
+                 transition-transform duration-150 will-change-transform hover:-translate-y-0.5 hover:shadow-md"
     >
       <Card.Content className="p-0 flex flex-col gap-6 md:gap-7 lg:gap-9 flex-1">
-        {/* Icon */}
         <div className="w-[80px] h-[80px] md:w-[90px] md:h-[90px] lg:w-[100px] lg:h-[100px] flex items-center justify-center rounded-full bg-white z-10">
           <Image src={icon} alt={title} width={56} height={56} />
         </div>
-
-        {/* Text */}
         <div className="flex flex-col gap-2 md:gap-3 flex-1">
           <h3 className="text-base md:text-lg lg:text-[24px] leading-6 md:leading-7 lg:leading-8 font-semibold text-[#112639]">
             {title}

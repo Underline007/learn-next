@@ -6,7 +6,7 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/shared/Logo";
 import { usePathname, useRouter } from "next/navigation";
-import { motion, animate, px } from "framer-motion";
+import { motion, animate } from "framer-motion";
 
 const navItems = [
   { label: "Trang chủ", href: "/" },
