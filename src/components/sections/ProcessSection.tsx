@@ -185,6 +185,7 @@ export function ProcessSection() {
         <div
           className="
             relative mx-auto max-w-[1918px]
+            [--img-shift:clamp(5px,1.6vw,28px)]
             [--d:380px] md:[--d:520px] xl:[--d:clamp(440px,42vw,680px)]
             [--card-w:min(426px,32vw)]
             [--gap-x:clamp(16px,2vw,24px)]
@@ -200,11 +201,12 @@ export function ProcessSection() {
             priority
             width={680}
             height={680}
-            className="block mx-auto xl:absolute xl:left-1/2 xl:-translate-x-1/2"
+            className="block mx-auto mt-6 md:mt-8 xl:mt-0 xl:absolute xl:left-1/2 xl:-translate-x-1/2"
             style={{
               width: "var(--d)",
               height: "var(--d)",
-              top: "calc(50% - var(--d)/2 - min(40px, calc(var(--d)*0.0005)))",
+              // Dịch ảnh xuống thêm var(--img-shift) khi ở XL (absolute)
+              top: "calc(50% - var(--d)/2 - min(40px, calc(var(--d)*0.0005)) + var(--img-shift))",
             }}
           />
 

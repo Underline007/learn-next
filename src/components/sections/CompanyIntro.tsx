@@ -80,8 +80,12 @@ export function CompanyIntro() {
                 </Heading>
                 <Heading
                   level={2}
-                  className="font-semibold text-[#112639] uppercase tracking-wide leading-tight whitespace-nowrap
-                             text-2xl sm:text-3xl md:text-4xl lg:text-[56px]"
+                  className="
+    font-semibold text-[#112639] uppercase tracking-wide leading-tight
+    text-2xl sm:text-3xl md:text-4xl lg:text-[56px]
+    text-center md:text-left
+    break-words whitespace-normal md:whitespace-nowrap
+  "
                 >
                   Kỷ nguyên vươn mình
                 </Heading>
@@ -153,7 +157,11 @@ export function CompanyIntro() {
                 </Heading>
                 <Heading
                   level={2}
-                  className="font-semibold text-[#112639] uppercase tracking-wide leading-tight whitespace-nowrap text-2xl"
+                  className="
+                      font-semibold text-[#112639] uppercase tracking-wide leading-tight
+                      text-2xl sm:text-3xl md:text-4xl lg:text-[56px]
+                      md:whitespace-nowrap
+                      "
                 >
                   Kỷ nguyên vươn mình
                 </Heading>
