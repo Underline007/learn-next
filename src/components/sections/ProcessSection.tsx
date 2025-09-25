@@ -167,7 +167,7 @@ export function ProcessSection() {
   const delayFor = (id: number) => (id - 1) * 250;
 
   return (
-    <section className="w-full bg-[#DEEAFB] pb-10 md:pb-12 xl:pb-0 overflow-x-hidden">
+    <section className="w-full bg-[#DEEAFB] pb-10 md:pb-12 xl:pb-0 overflow-x-hidden min-h-[1200px] xl:min-h-[1200px]">
       <div className="mx-auto max-w-[1918px] px-4 md:px-6 relative">
         {/* Header */}
         <header className="text-center mx-auto max-w-[1006px] pt-8 md:pt-12 xl:pt-[100px] mb-8 md:mb-10 xl:mb-6">
@@ -184,15 +184,16 @@ export function ProcessSection() {
         {/* Wrap image + cards */}
         <div
           className="
-            relative mx-auto max-w-[1918px]
-            [--img-shift:clamp(5px,1.6vw,28px)]
-            [--d:380px] md:[--d:520px] xl:[--d:clamp(440px,42vw,680px)]
-            [--card-w:min(426px,32vw)]
-            [--gap-x:clamp(16px,2vw,24px)]
-            [--icon-gap:clamp(10px,1.2vw,16px)]
-            [--icon:clamp(60px,9vw,72px)]
-            xl:h-[calc(var(--d)+100px)]
-          "
+    relative mx-auto max-w-[1918px]
+    [--img-shift:clamp(5px,1.6vw,28px)]
+    [--d:380px] md:[--d:520px] xl:[--d:clamp(440px,42vw,680px)]
+    /* 👇 card rộng hơn, không bị ngắn */
+    [--card-w:clamp(300px,26vw,356px)]
+    [--gap-x:clamp(16px,2vw,24px)]
+    [--icon-gap:clamp(10px,1.2vw,16px)]
+    [--icon:clamp(60px,9vw,72px)]
+    xl:h-[calc(var(--d)+180px)]
+  "
         >
           {/* process.svg */}
           <Image
@@ -205,8 +206,7 @@ export function ProcessSection() {
             style={{
               width: "var(--d)",
               height: "var(--d)",
-              // Dịch ảnh xuống thêm var(--img-shift) khi ở XL (absolute)
-              top: "calc(50% - var(--d)/2 - min(40px, calc(var(--d)*0.0005)) + var(--img-shift))",
+              top: "calc(52% - var(--d)/2 - min(40px, calc(var(--d)*0.00005)) + var(--img-shift))",
             }}
           />
 
@@ -258,7 +258,7 @@ export function ProcessSection() {
               className="absolute max-w-full"
               style={{
                 left: "calc(50% + var(--d)/2 + var(--gap-x))",
-                top: "calc(50% - var(--d)/2 + calc(var(--d)*0.069))",
+                top: "calc(50% - var(--d)/2 + calc(var(--d)*0.083))",
                 width: "min(100%, var(--card-w))",
               }}
             >

@@ -11,7 +11,6 @@ type SolutionCard = {
   description: string;
 };
 
-// 7 cards cho tab "Sản phẩm"
 const productCards: SolutionCard[] = [
   {
     id: 1,
@@ -88,15 +87,6 @@ const solutionCards: SolutionCard[] = [
   },
 ];
 
-// Function to group cards into rows of 4
-function groupCardsIntoRows(cards: SolutionCard[]): SolutionCard[][] {
-  const rows: SolutionCard[][] = [];
-  for (let i = 0; i < cards.length; i += 4) {
-    rows.push(cards.slice(i, i + 4));
-  }
-  return rows;
-}
-
 export function SolutionsSection() {
   const [activeTab, setActiveTab] = React.useState<"product" | "solution">(
     "product"
@@ -152,7 +142,7 @@ export function SolutionsSection() {
             <div
               key={card.id}
               className="
-                w-full sm:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)]
+                w-full sm:w-[calc(50%-1rem)] lg:w-[calc(40%-1.5rem)]
                 2xl:basis-[356px] 2xl:grow-0 2xl:shrink-0
                 max-w-[356px]
               "
