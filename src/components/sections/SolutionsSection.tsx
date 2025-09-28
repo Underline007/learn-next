@@ -95,8 +95,12 @@ export function SolutionsSection() {
 
   return (
     <section className="w-full bg-white">
-      {/* Container: 2xl match design 1520px (4*356 + 3*32) */}
-      <div className="mx-auto px-4 sm:px-6 lg:px-10 xl:px-16 2xl:px-0 max-w-screen-xl 2xl:max-w-[1520px] py-12 md:py-16 lg:py-24">
+      {/* giữ lg như cũ; chỉ nới rộng ở xl */}
+      <div
+        className="mx-auto px-4 sm:px-6 lg:px-10 xl:px-6 2xl:px-0
+                      max-w-screen-xl xl:max-w-[calc(100vw-48px)] 2xl:max-w-[1520px]
+                      py-12 md:py-16 lg:py-24"
+      >
         {/* Header */}
         <header className="max-w-[1005px] mx-auto text-center flex flex-col gap-3 md:gap-5">
           <h2 className="text-[24px] md:text-[40px] lg:text-[56px] font-semibold text-[#0749AD] leading-[130%]">
@@ -109,7 +113,6 @@ export function SolutionsSection() {
             doanh.
           </p>
 
-          {/* Tabs */}
           <div className="flex gap-4 justify-center mt-4">
             <button
               onClick={() => setActiveTab("product")}
@@ -134,17 +137,15 @@ export function SolutionsSection() {
           </div>
         </header>
 
-        {/* Cards: flex-wrap + justify-center để hàng thiếu tự căn giữa.
-            - gap-x/y = 32px
-            - 2xl: mỗi item cố định 356px; <2xl: item co giãn an toàn */}
-        <div className="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-8">
+        {/* Cards – giữ đúng công thức lg; xl kế thừa lg, chỉ nới container nên thẻ bớt bị bóp */}
+        <div className="mt-12 flex flex-wrap justify-center gap-x-6 gap-y-8 xl:gap-x-6">
           {cards.map((card) => (
             <div
               key={card.id}
               className="
-                w-full sm:w-[calc(50%-1rem)] lg:w-[calc(40%-1.5rem)]
-                2xl:basis-[356px] 2xl:grow-0 2xl:shrink-0
-                max-w-[356px]
+                w-full sm:w-[calc(50%-0.75rem)]
+                lg:basis-[calc((100%-72px)/4)] lg:max-w-[calc((100%-72px)/4)]
+                2xl:basis-[356px] 2xl:max-w-[356px]
               "
             >
               <SolutionCard {...card} />
@@ -159,19 +160,40 @@ export function SolutionsSection() {
 function SolutionCard({ icon, title, description }: SolutionCard) {
   return (
     <Card
-      className="relative isolate flex flex-col items-start p-6 md:p-7 lg:p-8 gap-6 md:gap-7 lg:gap-9
-                 rounded-[24px] lg:rounded-[32px] bg-[rgba(43,144,250,0.07)] border-2 shadow-none h-full w-full
-                 transition-transform duration-150 will-change-transform hover:-translate-y-0.5 hover:shadow-md"
+      className="relative isolate flex flex-col items-start 
+                     p-5 md:p-6 lg:p-6 xl:p-7 2xl:p-8
+                     gap-5 md:gap-6 lg:gap-6 xl:gap-7 2xl:gap-9
+                     rounded-[20px] lg:rounded-[24px] 2xl:rounded-[32px]
+                     bg-[rgba(43,144,250,0.07)] border-2 shadow-none h-full w-full
+                     transition-transform duration-150 will-change-transform hover:-translate-y-0.5 hover:shadow-md"
     >
-      <Card.Content className="p-0 flex flex-col gap-6 md:gap-7 lg:gap-9 flex-1">
-        <div className="w-[80px] h-[80px] md:w-[90px] md:h-[90px] lg:w-[100px] lg:h-[100px] flex items-center justify-center rounded-full bg-white z-10">
-          <Image src={icon} alt={title} width={56} height={56} />
+      <Card.Content className="p-0 flex flex-col gap-5 md:gap-6 lg:gap-6 xl:gap-7 2xl:gap-9 flex-1">
+        <div
+          className="flex items-center justify-center rounded-full bg-white z-10
+                        w-[60px] h-[60px] lg:w-[70px] lg:h-[70px] xl:w-[80px] xl:h-[80px] 2xl:w-[100px] 2xl:h-[100px]"
+        >
+          <Image
+            src={icon}
+            alt={title}
+            width={56}
+            height={56}
+            className="w-[28px] h-[28px] lg:w-[36px] lg:h-[36px] xl:w-[44px] xl:h-[44px] 2xl:w-[56px] 2xl:h-[56px]"
+          />
         </div>
-        <div className="flex flex-col gap-2 md:gap-3 flex-1">
-          <h3 className="text-base md:text-lg lg:text-[24px] leading-6 md:leading-7 lg:leading-8 font-semibold text-[#112639]">
+
+        <div className="flex flex-col gap-2 flex-1">
+          <h3
+            className="font-semibold text-[#112639]
+                         text-[14px] lg:text-[15px] xl:text-[18px] 2xl:text-[24px]
+                         leading-[18px] lg:leading-[20px] xl:leading-[22px] 2xl:leading-[28px]"
+          >
             {title}
           </h3>
-          <p className="text-sm md:text-[15px] lg:text-[14px] leading-5 md:leading-6 lg:leading-5 text-[#7B849F] flex-1">
+          <p
+            className="text-[#7B849F] flex-1
+                        text-[12px] lg:text-[13px] xl:text-[14px] 2xl:text-[14px]
+                        leading-[16px] lg:leading-[18px] xl:leading-[20px] 2xl:leading-[22px]"
+          >
             {description}
           </p>
         </div>
